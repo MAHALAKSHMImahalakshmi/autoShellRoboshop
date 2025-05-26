@@ -12,18 +12,18 @@ cp $SCRIPT_DIR/mongod.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Copying mongoDB repo"
 
 # Installs the MongoDB server package using the DNF package manager.
-dnf install mongodb-org -y
+dnf install mongodb-org -y 
 VALIDATE $? "Installing mongodb server"
 
 # Enables and starts the MongoDB service using the setup_service function.
-setup_service "mongod"
+setup_service "mongod" 
 
 # Modifies the MongoDB configuration file to allow remote connections by changing the bind IP.
-sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongod.conf
+sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongod.conf 
 VALIDATE $? "Editing MongoDB conf file for remote connections"
 
 # Restarts the MongoDB service to apply the configuration changes.
-systemctl restart mongod
+systemctl restart mongod &>>$LOG_FILE
 VALIDATE $? "Restarting MongoDB"
 
 # Prints the total execution time of the script.
