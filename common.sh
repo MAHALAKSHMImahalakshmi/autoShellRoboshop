@@ -1,6 +1,6 @@
 #!/bin/bash
 
-START_TIME=$(date +s%)
+START_TIME=$(date +%s)
 USERID=$(id -u)
 R="\e[31m"
 
@@ -108,7 +108,7 @@ check_root(){
 
 print_time(){
     # Calculates and prints the total time taken to execute the script.
-    END_TIME=$(date +s%)
+    END_TIME=$(date +%s)
     TOTAL_TIME=$((END_TIME-START_TIME))
     echo -e "Script executed successfully, $Y Time taken: $TOTAL_TIME seconds $N"
 }
