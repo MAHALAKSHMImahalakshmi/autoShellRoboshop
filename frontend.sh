@@ -27,6 +27,19 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "extractin ziped dir"
 
+: <<'COMMENT'
+Why remove the file? To avoid conflicts between default and custom configurations.
+
+What does it do? Deletes the default Nginx settings so Nginx only uses the new ones you provide.
+
+Why automate? For consistency, simplicity, and error prevention during repeated setups.
+
+This ensures your Nginx server is configured perfectly for your specific application, without any interference from the default settings.
+COMMENT
+
+rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
+VALIDATE $? "Remove default nginx conf"
+
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
 VALIDATE $? "Copying nginx.conf"
 
