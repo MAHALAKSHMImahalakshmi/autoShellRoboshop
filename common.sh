@@ -2,11 +2,12 @@
 
 START_TIME=$(date +s%)
 USERID=$(id -u)
-R="/e[31m"
-G="/e[32m"
-Y="/e[33m"
-B="/e[34m"
-N="/e[0m"
+R="\e[31m"
+
+G="\e[32m"
+Y="\e[33m"
+B="\e[34m"
+N="\e[0m"
 
 LOG_FOLDER="/var/log/roboshop-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f 1)
