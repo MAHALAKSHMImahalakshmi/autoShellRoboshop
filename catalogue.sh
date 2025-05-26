@@ -28,7 +28,7 @@ dnf install mongodb-mongosh -y
 VALIDATE $? "Installing  mongodb-client"
 
 # Checks if the "catalogue" database exists on the MongoDB server.
-STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+STATUS=$(mongosh --host mongodb.srivenkata.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 # If the "catalogue" database does not exist, load the master data from the script.
 
 if [$STATUS -lt 0 ]
