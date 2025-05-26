@@ -27,18 +27,22 @@ VALIDATE $? "Copying mongoDB repo"
 dnf install mongodb-mongosh -y
 VALIDATE $? "Installing  mongodb-client"
 
+
+
 # Checks if the "catalogue" database exists on the MongoDB server.
 STATUS=$(mongosh --host mongodb.srivenkata.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
-# If the "catalogue" database does not exist, load the master data from the script.
 
-if [$STATUS -lt 0 ]
-then 
-     # Loads the master data for the list of products into the MongoDB database.
-    mongosh --host mongodb.srivenkata.shop </app/db/master-data.js
+# If the "catalogue" database does not exist, load the master data from the script.
+if [ $STATUS -lt 0 ]
+then
+# Loads the master data for the list of products into the MongoDB database.
+    mongosh --host mongodb.srivenkata.shop </app/db/master-data.js &>>$LOG_FILE
     VALIDATE $? "Loading Master Data of the List of products"
 else
+  
     # Prints a message indicating that the master data is already loaded and skips the process.
     echo -e "$B Already Loaded Master Data of the List of products ..... $Y SKIPPING $N" 
+
 
 fi
 
