@@ -34,4 +34,4 @@ VALIDATE $? "Copying nginx.conf"
 systemctl restart nginx 
 VALIDATE $? "Restarting Nginx Service to load the changes of the configuration"
 
-part_time
+print_time
