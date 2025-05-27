@@ -16,7 +16,11 @@ dnf install mongodb-org -y
 VALIDATE $? "Installing mongodb server"
 
 # Enables and starts the MongoDB service using the setup_service function.
-setup_service "mongod" 
+systemctl enable mongod &>>$LOG_FILE
+VALIDATE $? "Enabling MongoDB"
+
+systemctl start mongod &>>$LOG_FILE
+VALIDATE $? "Starting MongoDB"
 
 # Modifies the MongoDB configuration file to allow remote connections by changing the bind IP.
 sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongod.conf 

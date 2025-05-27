@@ -8,7 +8,7 @@ app_name="catalogue"
 check_root
 
 # Sets up the roboshop application by creating a user, preparing the directory, downloading, and extracting the application files.
-setup_app
+setup_app 
 
 # Installs Node.js by enabling the correct module and validating the installation.
 setup_nodejs
