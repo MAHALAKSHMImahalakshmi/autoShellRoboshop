@@ -17,7 +17,12 @@ setup_nodejs
 setup_systemd 
 
 # Enables and starts the given system service, with validation.
-setup_service "$app_name"
+
+
+systemctl enable catalogue &>>$LOG_FILE
+VALIDATE $? "System service enable for catalogue"
+systemctl start catalogue &>>$LOG_FILE
+VALIDATE $? "System service start for catalogue"
 
 # Copies the MongoDB repository configuration file to the YUM repositories directory.
 cp $SCRIPT_DIR/mongod.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
