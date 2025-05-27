@@ -17,7 +17,33 @@ mkdir -p $LOG_FOLDER
 
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
-systemd_setup(){
+
+setup_python(){
+
+    dnf install python3 gcc python3-devel -y &>>$LOG_FILE
+    VALIDATE $? "Installing python3 ......."
+
+    cd /app 
+    pip3 install -r requirements.txt &>>$LOG_FILE
+    VALIDATE $? "Installing requirements ......."
+
+}
+
+setup_maven(){
+
+    dnf install maven -y &>>$LOG_FILE
+    VALIDATE $? "Installing maven ......"
+
+    cd /app 
+    mvn clean package &>>$LOG_FILE
+    VALIDATE $? "cleaning maven package ......"
+
+    mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
+    VALIDATE $? "Moving and renaming file from target/shipping-1.0.jar  to  shipping.jar  ......"
+
+}
+
+setup_systemd(){
     # Sets up systemd service by copying, reloading daemon, and validating.
     cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>>$LOG_FILE
     VALIDATE $? "Copying $app_name service file to /etc/systemd dir "
@@ -46,7 +72,7 @@ setup_nodejs(){
 }
 
 
-app_setup(){
+setup_app(){
 
     # Sets up the roboshop application by creating a user, preparing the directory, downloading, and extracting the application files.
 

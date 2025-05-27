@@ -8,23 +8,23 @@ app_name="catalogue"
 check_root
 
 # Sets up the roboshop application by creating a user, preparing the directory, downloading, and extracting the application files.
-app_setup
+setup_app
 
 # Installs Node.js by enabling the correct module and validating the installation.
 setup_nodejs
 
 # Sets up systemd service by copying, reloading daemon, and validating.
-systemd_setup 
+setup_systemd 
 
 # Enables and starts the given system service, with validation.
 setup_service "$app_name"
 
 # Copies the MongoDB repository configuration file to the YUM repositories directory.
-cp $SCRIPT_DIR/mongod.repo /etc/yum.repos.d/mongo.repo
+cp $SCRIPT_DIR/mongod.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATE $? "Copying mongoDB repo"
 
 # Installs the MongoDB client (mongosh) and validates the installation.
-dnf install mongodb-mongosh -y
+dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing  mongodb-client"
 
 
