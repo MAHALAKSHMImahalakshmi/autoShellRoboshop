@@ -13,7 +13,9 @@ dnf install nginx -y &>>$LOG_FILE
 VALIDATE $? "instaling nginx:1.24"
 
 # Enables and starts the given system service, with validation
-setup_service "nginx"
+systemctl enable nginx  &>>$LOG_FILE
+systemctl start nginx 
+VALIDATE $? "Starting Nginx"
 
 #Remove the default content that web server is serving.
 rm -rf /usr/share/nginx/html/*  &>>$LOG_FILE
