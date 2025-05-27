@@ -1,3 +1,4 @@
+#!/bin/bash
 # Sources the common functions script to use shared utilities.
 source ./common.sh
 
