@@ -6,33 +6,28 @@ source ./common.sh
 app_name="nginx"
 check_root
 
-#Disabling of pre-verson of nodejs ,enabling and installing required version of nginx
 dnf module disable nginx -y &>>$LOG_FILE
-VALIDATE $? "Disabling nginx"
+VALIDATE $? "Disabling Default Nginx"
 
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
-VALIDATE $? "enabling nginx:1.24"
+VALIDATE $? "Enabling Nginx:1.24"
 
 dnf install nginx -y &>>$LOG_FILE
-VALIDATE $? "instaling nginx:1.24"
+VALIDATE $? "Installing Nginx"
 
-# Enables and starts the given system service, with validation
 systemctl enable nginx  &>>$LOG_FILE
 systemctl start nginx 
 VALIDATE $? "Starting Nginx"
 
-#Remove the default content that web server is serving.
-rm -rf /usr/share/nginx/html/*  &>>$LOG_FILE
-VALIDATE $? "Removing the default content that web server is serving." 
-#Download the frontend content
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
-VALIDATE $? "Downloding frotend code to temp dir"
+rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
+VALIDATE $? "Removing default content"
 
-#Extract the frontend content.
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
+VALIDATE $? "Downloading frontend"
+
 cd /usr/share/nginx/html 
 unzip /tmp/frontend.zip &>>$LOG_FILE
-VALIDATE $? "extracting ziped dir"
-
+VALIDATE $? "unzipping frontend"
 
 rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
 VALIDATE $? "Remove default nginx conf"
@@ -40,8 +35,7 @@ VALIDATE $? "Remove default nginx conf"
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
 VALIDATE $? "Copying nginx.conf"
 
-#Restart Nginx Service to load the changes of the configuration.
 systemctl restart nginx 
-VALIDATE $? "Restarting Nginx Service to load the changes of the configuration"
+VALIDATE $? "Restarting nginx"
 
 print_time
