@@ -20,3 +20,4 @@ setup_systemd
 
 # Enables and starts the given system service, with validation.
 setup_service "$app_name"
+print_times

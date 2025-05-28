@@ -1,7 +1,7 @@
 #!/bin/bash
 # Sources the common functions script to use shared utilities.
 source ./common.sh
-
+app_name="rabbitmq"
 # Sets the application name to "rabbitmq" for consistent logging and validation.
 #app_name="rabbitmq-server"
 
