@@ -18,7 +18,7 @@ setup_systemd
 
 
 # Enables and starts the given system service, with validation.
-setup_service "user" 
+setup_service "cart" 
 
 # Prints the total execution time of the script.
 print_time
