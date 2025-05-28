@@ -9,7 +9,7 @@ check_root
  
 # input statement for passward changing in line 20
 echo "Please enter root password to setup"
-Read -s MYSQL_ROOT_PASSWORD
+READ -s MYSQL_ROOT_PASSWORD
 
 #installing mysql-server
 dnf install mysql-server -y &>>$LOG_FILE
