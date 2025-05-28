@@ -3,7 +3,7 @@
 source ./common.sh
 
 # Sets the application name to "frontend" for consistent logging and validation.
-app_name="frontend"
+app_name="nginx"
 check_root
 
 #Disabling of pre-verson of nodejs ,enabling and installing required version of nginx
