@@ -9,8 +9,10 @@ check_root
 #Disabling of pre-verson of nodejs ,enabling and installing required version of nginx
 dnf module disable nginx -y &>>$LOG_FILE
 VALIDATE $? "Disabling nginx"
+
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
 VALIDATE $? "enabling nginx:1.24"
+
 dnf install nginx -y &>>$LOG_FILE
 VALIDATE $? "instaling nginx:1.24"
 
@@ -29,7 +31,7 @@ VALIDATE $? "Downloding frotend code to temp dir"
 #Extract the frontend content.
 cd /usr/share/nginx/html 
 unzip /tmp/frontend.zip &>>$LOG_FILE
-VALIDATE $? "extractin ziped dir"
+VALIDATE $? "extracting ziped dir"
 
 
 rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
