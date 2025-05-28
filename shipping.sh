@@ -7,7 +7,7 @@ app_name="shipping"
 # Checks if the script is being run with root privileges, exits if not.
 check_root
 echo "Enter mysql root password"
-READ -s MYSQL_ROOT_PASSWORD
+read -s MYSQL_ROOT_PASSWORD
 
 # Sets up the roboshop application by creating a user, preparing the directory, downloading, and extracting the application files.
 setup_app
