@@ -18,10 +18,8 @@ setup_systemd
 
 
 # Enables and starts the given system service, with validation.
-systemctl daemon-reload &>>$LOG_FILE
-systemctl enable cart  &>>$LOG_FILE
-systemctl start cart
-VALIDATE $? "Starting cart"
+setup_service "cart" 
+
 
 # Prints the total execution time of the script.
 print_time
