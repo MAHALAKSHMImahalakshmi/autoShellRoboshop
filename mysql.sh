@@ -16,7 +16,7 @@ dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "Installing mysql-server ....."
 
 # Enables and starts the given system service, with validation.
-setup_service "$app_name"
+setup_service "mysqld"
 
 #We need to change the default root password in order to start using the database service. Use password RoboShop@1 or any other as per your choice.
 mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD &>>$LOG_FILE
