@@ -9,7 +9,7 @@ check_root
 
 # input statement for passward changing in line 20
 echo "Please enter password for accessing rabbitmq"
-READ -s RABBITMQ_ROOT_PASSWORD
+read -s RABBITMQ_ROOT_PASSWORD
 
 cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 VALIDATE $? "Adding rabbitmq repo ......"
