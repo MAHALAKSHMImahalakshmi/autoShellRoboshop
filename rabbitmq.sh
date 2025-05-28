@@ -1,8 +1,9 @@
+#!/bin/bash
 # Sources the common functions script to use shared utilities.
 source ./common.sh
 
 # Sets the application name to "rabbitmq" for consistent logging and validation.
-app_name="rabbitmq"
+#app_name="rabbitmq-server"
 
 # Checks if the script is being run with root privileges, exits if not.
 check_root

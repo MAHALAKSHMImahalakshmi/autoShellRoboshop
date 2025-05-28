@@ -27,6 +27,9 @@ setup_python(){
     pip3 install -r requirements.txt 
     VALIDATE $? "Installing requirements ......."
 
+    cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
+    VALIDATE $? "Copying payment service"
+
 }
 
 setup_maven(){
