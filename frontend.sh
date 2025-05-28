@@ -1,63 +1,44 @@
 #!/bin/bash
-
-# Load common functions and utilities
+# Sources the common functions script to use shared utilities.
 source ./common.sh
 
-# Ensure the script is run as root
-check_root
-
-# Variables
+# Sets the application name to "frontend" for consistent logging and validation.
 app_name="frontend"
-frontend_url="https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip"
-temp_zip="/tmp/frontend.zip"
-nginx_conf_path="/etc/nginx/nginx.conf"
 
-# Step 1: Disable default Nginx module and enable the required version
+#Disabling of pre-verson of nodejs ,enabling and installing required version of nginx
 dnf module disable nginx -y &>>$LOG_FILE
-VALIDATE $? "Disabling Default Nginx Module"
-
+VALIDATE $? "Disabling nginx"
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
-VALIDATE $? "Enabling Nginx:1.24"
-
-# Step 2: Install Nginx
+VALIDATE $? "enabling nginx:1.24"
 dnf install nginx -y &>>$LOG_FILE
-VALIDATE $? "Installing Nginx"
+VALIDATE $? "instaling nginx:1.24"
 
-# Step 3: Enable and start Nginx service
-systemctl enable nginx &>>$LOG_FILE
-VALIDATE $? "Enabling Nginx Service"
+# Enables and starts the given system service, with validation
+systemctl enable nginx  &>>$LOG_FILE
+systemctl start nginx 
+VALIDATE $? "Starting Nginx"
 
-systemctl start nginx &>>$LOG_FILE
-VALIDATE $? "Starting Nginx Service"
+#Remove the default content that web server is serving.
+rm -rf /usr/share/nginx/html/*  &>>$LOG_FILE
+VALIDATE $? "Removing the default content that web server is serving." 
+#Download the frontend content
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
+VALIDATE $? "Downloding frotend code to temp dir"
 
-# Step 4: Remove default Nginx content
-rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
-VALIDATE $? "Removing Default Content in /usr/share/nginx/html"
+#Extract the frontend content.
+cd /usr/share/nginx/html 
+unzip /tmp/frontend.zip &>>$LOG_FILE
+VALIDATE $? "extractin ziped dir"
 
-# Step 5: Download frontend content
-curl -o $temp_zip $frontend_url &>>$LOG_FILE
-if [ $? -ne 0 ]; then
-    echo -e "$R Error: Failed to download frontend from $frontend_url $N" | tee -a $LOG_FILE
-    exit 1
-fi
-VALIDATE $? "Downloading Frontend Content"
 
-# Step 6: Extract frontend content
-cd /usr/share/nginx/html
-unzip $temp_zip &>>$LOG_FILE
-VALIDATE $? "Extracting Frontend Content"
+rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
+VALIDATE $? "Remove default nginx conf"
 
-# Step 7: Remove default Nginx configuration
-rm -rf $nginx_conf_path &>>$LOG_FILE
-VALIDATE $? "Removing Default Nginx Configuration"
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
+VALIDATE $? "Copying nginx.conf"
 
-# Step 8: Copy custom Nginx configuration
-cp $SCRIPT_DIR/nginx.conf $nginx_conf_path &>>$LOG_FILE
-VALIDATE $? "Copying Custom Nginx Configuration"
+#Restart Nginx Service to load the changes of the configuration.
+systemctl restart nginx 
+VALIDATE $? "Restarting Nginx Service to load the changes of the configuration"
 
-# Step 9: Restart Nginx to apply changes
-systemctl restart nginx &>>$LOG_FILE
-VALIDATE $? "Restarting Nginx to Apply Configuration Changes"
-
-# Step 10: Print total execution time
 print_time

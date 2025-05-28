@@ -1,3 +1,4 @@
+#!/bin/bash
 #  Sources the common functions script to use shared utilities.
 source ./common.sh
 
@@ -19,4 +20,10 @@ VALIDATE $? "Installing redis module ver:7 ..."
 
 sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
 
-setup_service "redis"
+systemctl enable redis &>>$LOG_FILE
+VALIDATE $? "Enabling Redis"
+
+systemctl start redis  &>>$LOG_FILE
+VALIDATE $? "Started Redis"
+
+print_time

@@ -24,7 +24,7 @@ setup_python(){
     VALIDATE $? "Installing python3 ......."
 
     cd /app 
-    pip3 install -r requirements.txt &>>$LOG_FILE
+    pip3 install -r requirements.txt 
     VALIDATE $? "Installing requirements ......."
 
 }
