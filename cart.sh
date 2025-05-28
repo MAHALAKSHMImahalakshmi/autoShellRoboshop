@@ -1,7 +1,7 @@
 #  Sources the common functions script to use shared utilities.
 source ./common.sh
 
-app_name="user"
+app_name="cart"
 
 # Sets the application name to "cart" for consistent logging and validation.
 check_root
