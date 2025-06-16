@@ -6,6 +6,7 @@ I’ve reduced code duplication, improved maintainability, and made debugging a 
 
 ---
 
+
 ## 🌟 What’s New & Better?
 
 - **🧩 Modular Scripting:** All repeated logic is now in `common.sh` – less code, fewer bugs, easier updates!
@@ -13,6 +14,14 @@ I’ve reduced code duplication, improved maintainability, and made debugging a 
 - **⚡ Faster Debugging:** Centralized logging and validation functions.
 - **📉 Reduced Lines:** Compare with my [old Roboshop repo](https://github.com/MAHALAKSHMImahalakshmi/roboshop.git) – you’ll see the difference!
 - **🎨 Easy to Maintain:** Update one place, affect all scripts.
+
+---
+### 💡 Script Idempotency
+
+- My `roboshop.sh` script is **idempotent**:  
+  - You can run it multiple times without causing duplicate resources or errors.
+  - It uses the `UPSERT` action in Route 53, so DNS records are created or updated as needed.
+  - This makes automation safe and repeatable!
 
 ---
 
@@ -56,7 +65,7 @@ I’ve reduced code duplication, improved maintainability, and made debugging a 
 
 ## 🆚 Comparison: Old vs New
 
-| Aspect         | Old Roboshop Repo ([link](https://github.com/your-old-roboshop-link)) | autoShellRoboshop (This Repo) |
+| Aspect         | Old Roboshop Repo ([link](https://github.com/MAHALAKSHMImahalakshmi/roboshop.git)) | autoShellRoboshop (This Repo) |
 |----------------|:---------------------------------------------------------------------:|:-----------------------------:|
 | Code Duplication | ❌ High (same logic in every script)                                | ✅ Minimal (all in `common.sh`)|
 | Maintenance     | ❌ Tedious, error-prone                                               | ✅ Easy, one place to update   |
@@ -64,33 +73,31 @@ I’ve reduced code duplication, improved maintainability, and made debugging a 
 | Script Length   | ❌ Long, repetitive                                                   | ✅ Short, readable             |
 | Professionalism | ❌ Basic scripting                                                    | ✅ Modular, real-world ready   |
 
----
 
-## 🖼️ How to Add Images to Your README
-
-Want to show off your project visually? Here’s how:
-
-1. **Move your image** to an `images/` folder in your repo.
-2. **Commit the image**:
-   ```bash
-   git add images/your-image.png
-   git commit -m "Add image for README"
-   git push
-   ```
-3. **Reference in README**:
-   ```markdown
-   ![Alt Text](images/your-image.png)
-   ```
-4. **Check on GitHub** to make sure it displays!
 
 ---
 
-## 🛠️ Debugging & Troubleshooting Tips
+### 😅 Common Mistakes I Made (and How I Fixed Them)
 
-- **Common Mistakes I Made (and Fixed!):**
-  - Forgot to update IP in Route 53 after EC2 restart ➡️ Use `nslookup` to verify DNS.
-  - Missed updating backend IPs in `nginx.conf` for reverse proxy ➡️ Always check and reload Nginx.
-  - Forgot to restart services after config changes ➡️ Always run `systemctl restart <service>`.
+- 🔄 **Forgot to update IP in Route 53 after EC2 restart:**  
+  ➡️ Now I always use `nslookup` to verify my DNS records are correct!
+
+- 🔁 **Missed updating backend IPs in `nginx.conf` for reverse proxy:**  
+  ➡️ I double-check and reload Nginx after any config change.
+
+- 🔄 **Forgot to restart services after config changes:**  
+  ➡️ I always run `systemctl restart <service>` to apply updates.
+
+- 🔌 **Port connection issues:**  
+  ➡️ I use `telnet <ip/domain> <port>` to check if services are reachable.
+
+- 🚦 **Service status and 404 errors:**  
+  ➡️ I check `systemctl status <service>` to quickly spot and fix issues.
+
+---
+
+> 💡 Each mistake made me a better troubleshooter and more reliable DevOps engineer!
+  
 - **Handy Commands:**
   - `netstat -lntp` – See which ports are open and which process is using them.
   - `telnet <domain/ip> <port>` – Test if a service is reachable.
@@ -99,16 +106,40 @@ Want to show off your project visually? Here’s how:
 - **Pro Tip:**  
   Centralized logging in `common.sh` means you can always check `/var/log/roboshop-logs/<service>.log` for errors!
 
+
 ---
 
-## ☁️ Steps to Create AWS EC2 Instances
+## 🟩 AWS EC2 Setup & MobaXterm Connection (Beginner Practice)
 
-1. Login to AWS Console → EC2 Dashboard.
-2. Launch Instance (Amazon Linux 2/Ubuntu).
-3. Configure details, storage, tags (e.g., `roboshop-cart`).
-4. Open required ports in Security Group.
-5. Launch and associate Elastic IP (optional).
-6. Update Route 53 DNS to point to your instance.
+### 🚦 My Practice Setup
+
+- **OS Selection:**  
+  - Chose Amazon Linux 2 or Ubuntu in the AWS EC2 launch wizard.
+- **Authentication:**  
+  - Selected **password authentication** (did not use SSH key).
+  - Set a default username and password during instance creation.
+- **Security Group:**  
+  - Allowed **all inbound and outbound traffic** for initial learning (source: `0.0.0.0/0`, destination: `*`).
+  - ⚠️ *Note: This is only for practice. In production, always restrict access!*
+
+---
+
+### 🖥️ Connecting with MobaXterm
+
+1. Open **MobaXterm**.
+2. Click **Session** → **SSH**.
+3. Paste your EC2 instance’s **public IP address**.
+4. Enter the **username** you set during instance creation.
+5. Tick the box for **password authentication** and enter your password.
+6. Click **OK** to connect!
+
+---
+
+
+> **Pro Tip:**  
+> For learning, open security is OK, but always tighten security for real deployments!
+
+
 
 ---
 
