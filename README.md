@@ -11,7 +11,7 @@ I’ve reduced code duplication, improved maintainability, and made debugging a 
 - **🧩 Modular Scripting:** All repeated logic is now in `common.sh` – less code, fewer bugs, easier updates!
 - **📝 Cleaner Scripts:** Each service script is short, readable, and focused on just the unique steps.
 - **⚡ Faster Debugging:** Centralized logging and validation functions.
-- **📉 Reduced Lines:** Compare with my [old Roboshop repo](https://github.com/your-old-roboshop-link) – you’ll see the difference!
+- **📉 Reduced Lines:** Compare with my [old Roboshop repo](https://github.com/MAHALAKSHMImahalakshmi/roboshop.git) – you’ll see the difference!
 - **🎨 Easy to Maintain:** Update one place, affect all scripts.
 
 ---
@@ -124,7 +124,7 @@ Want to show off your project visually? Here’s how:
 ## 🔗 Previous Roboshop Repo
 
 Check out my original, more verbose version here:  
-[Old Roboshop GitHub Repo](https://github.com/your-old-roboshop-link)
+[Old Roboshop GitHub Repo](https://github.com/MAHALAKSHMImahalakshmi/roboshop.git)
 
 ---
 
